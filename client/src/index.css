@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+body {
+  @apply bg-neutral-200 min-h-screen;
+  @apply font-sans;
+}
+.form-exercise{
+  @apply flex flex-col gap-y-5;
+  p{
+    @apply flex flex-col gap-y-1;
+    label{
+      @apply font-semibold;
+    }
+    input{
+      @apply w-full p-3 rounded-lg border border-neutral-400;
+    }
+    select{
+      @apply w-full p-3 rounded-lg border border-neutral-400;
+    }
+  }
+}
+.show-span{
+  span{
+    @apply inline;
+  }
+}
+.input-forms{
+  @apply w-full p-3 rounded-lg border border-neutral-400;
+}
+
+@theme{
+  --animation-slideIn:slideIn 0.5s ease-out forwards,
+@keyframes slideIn: {
+    0%: { transform: translateX(-100%), opacity: 0},
+    100%: { transform: translateX(0), opacity: 1},
+  },
+}

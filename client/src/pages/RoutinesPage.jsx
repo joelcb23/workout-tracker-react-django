@@ -1,0 +1,79 @@
+import PopUp from "../components/PopUp";
+import Routine from "../components/Routine";
+import { useRoutine } from "../context/RoutineContext";
+import { useEffect, useState } from "react";
+
+const RoutinesPage = () => {
+  const { routine, routines, getRoutines, createRoutine } = useRoutine();
+  const [showModal, setShowModal] = useState(false);
+  const onSubmit = (e) => {
+    e.preventDefault();
+    const data = {
+      name: e.target[0].value,
+    };
+    createRoutine(data);
+    setShowModal(false);
+  };
+  const renderRoutinesList = () => {
+    if (!routines)
+      return (
+        <p className="text-center text-2xl font-semibold">
+          No routines yet. Create a new one!
+        </p>
+      );
+    return routines.map(({ id, name, is_active }) => (
+      <Routine key={id} id={id} name={name} isActive={is_active} />
+    ));
+  };
+  useEffect(() => {
+    const loadRoutines = async () => {
+      routine && getRoutines();
+    };
+    loadRoutines();
+  }, [routine?.id, routine?.is_active]);
+  return (
+    <div
+      className={`bg-white max-w-[1080px] min-h-[800px] mx-auto flex flex-col gap-y-4 my-14 px-10 py-14 rounded-xl `}
+    >
+      <h1
+        className={`text-3xl text-center font-semibold uppercase pb-10 border-b`}
+      >
+        Routines
+      </h1>
+      <div className="min-h-[600px] flex flex-col gap-y-4 px-10">
+        {renderRoutinesList()}
+      </div>
+      <p
+        className="bg-sky-400 hover:bg-sky-600 text-white font-semibold rounded cursor-pointer text-center p-3 px-5"
+        onClick={() => setShowModal(true)}
+      >
+        Add a new routine
+      </p>
+      <PopUp show={showModal} onClose={() => setShowModal(false)}>
+        <h2 className="text-2xl font-semibold text-center my-3">
+          Create a new routine
+        </h2>
+        <p className="text-neutral-600 text-base text-center">
+          Cool, lets create a new routine. You can add exercises later, for that
+          you must active the routine
+        </p>
+        <form onSubmit={onSubmit} className="form-exercise my-3">
+          <p>
+            <label htmlFor="name">Name: </label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              placeholder="Volume routine"
+            />
+          </p>
+          <button className="bg-sky-400 hover:bg-sky-600 text-white font-semibold rounded cursor-pointer text-center p-3 px-5">
+            Create
+          </button>
+        </form>
+      </PopUp>
+    </div>
+  );
+};
+
+export default RoutinesPage;

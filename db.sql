@@ -1,0 +1,4 @@
+DROP DATABASE IF EXISTS `workout_tracker_db`;
+CREATE DATABASE
+IF NOT EXISTS `workout_tracker_db`;
+SHOW DATABASES;
