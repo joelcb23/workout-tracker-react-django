@@ -87,16 +87,16 @@ def login_view(request):
                 key="access_token",
                 value=tokens["access"],
                 httponly=True,
-                secure=False,  # cambia a True en producción con HTTPS
-                samesite="Lax",
+                secure=True,  # cambia a True en producción con HTTPS
+                samesite="None",
                 max_age=300  # opcional, 5 minutos
             )
             response.set_cookie(
                 key="refresh_token",
                 value=tokens["refresh"],
                 httponly=True,
-                secure=False,
-                samesite="Lax",
+                secure=True,
+                samesite="None",
                 max_age=86400  # opcional, 1 día
             )
             return response
