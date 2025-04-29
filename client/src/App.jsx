@@ -13,6 +13,8 @@ import HomePage from "./pages/HomePage";
 import ExercisesFromRoutine from "./pages/ExercisesFromRoutine";
 import Footer from "./components/Footer";
 import ProtectedRouter from "./ProtectedRouter";
+import PageContainer from "./components/PageContainer";
+import BottomBar from "./components/BottomBar";
 
 const App = () => {
   return (
@@ -20,34 +22,37 @@ const App = () => {
       <AuthProvider>
         <RoutineProvider>
           <Navbar />
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
-            <Route element={<ProtectedRouter />}>
-              <Route path="/today" element={<TodayPage />} />
-              <Route
-                path="/workout-routine/routines"
-                element={<RoutinesPage />}
-              />
-              <Route
-                path={"/workout-routine/routine/:id/:name"}
-                element={<ExercisesFromRoutine />}
-              />
-              <Route
-                path="/workout-routine/edit-exercise/:routineId/:exerciseId"
-                element={<ExerciseForm />}
-              />
-              <Route
-                path="/workout-routine/active"
-                element={<RoutineActivePage />}
-              />
-              <Route
-                path="/workout-routine/active/add-exercise"
-                element={<ExerciseForm />}
-              />
-            </Route>
-          </Routes>
+          <PageContainer>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/register" element={<RegisterPage />} />
+              <Route element={<ProtectedRouter />}>
+                <Route path="/today" element={<TodayPage />} />
+                <Route
+                  path="/workout-routine/routines"
+                  element={<RoutinesPage />}
+                />
+                <Route
+                  path={"/workout-routine/routine/:id/:name"}
+                  element={<ExercisesFromRoutine />}
+                />
+                <Route
+                  path="/workout-routine/edit-exercise/:routineId/:exerciseId"
+                  element={<ExerciseForm />}
+                />
+                <Route
+                  path="/workout-routine/active"
+                  element={<RoutineActivePage />}
+                />
+                <Route
+                  path="/workout-routine/active/add-exercise"
+                  element={<ExerciseForm />}
+                />
+              </Route>
+            </Routes>
+          </PageContainer>
+          <BottomBar />
           <Footer />
         </RoutineProvider>
       </AuthProvider>

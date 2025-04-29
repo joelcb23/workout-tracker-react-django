@@ -1,8 +1,8 @@
 const Footer = () => {
   return (
-    <footer className="bg-sky-500 text-white w-full text-center py-4">
+    <footer className="bg-purple-500 text-white text-center py-4 mb-16 md:mb-0 md:absolute right-0 w-full">
       <p className="text-lg font-semibold">
-        © 2023 Workout Tracker. All rights reserved.
+        © 2025 Workout Tracker. All rights reserved.
       </p>
       <div className="flex justify-center gap-x-4 mt-2">
         <a href="#" className="hover:underline">

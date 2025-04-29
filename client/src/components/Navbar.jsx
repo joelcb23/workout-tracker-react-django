@@ -7,8 +7,9 @@ const Navbar = () => {
   const navigate = useNavigate();
   useEffect(() => {}, [isAuthenticated]);
   return (
-    <nav className="w-full h-[120px] bg-white shadow-lg">
-      <ul className="flex justify-center items-center gap-x-14 w-full h-full text-2xl font-bold uppercase">
+    <nav className="navbar">
+      <h1 className="text-3xl font-bold md:hidden">My Workout Tracker</h1>
+      <ul className="hidden md:flex justify-center items-center gap-x-14 w-full h-full text-2xl font-bold uppercase">
         {isAuthenticated && (
           <li className="capitalize">Hi, {user.username}!</li>
         )}

@@ -17,11 +17,11 @@ const ExercisesFromRoutine = () => {
     loadExercises();
   }, [params.id]);
   return (
-    <div className="bg-white max-w-[1080px] min-h-[800px] mx-auto flex flex-col gap-y-4 my-14 px-10 py-7 rounded-xl">
-      <div className=" flex justify-center items-center border-b py-5">
+    <>
+      <div className=" flex justify-center items-center border-b p-10">
         <h2 className="text-3xl font-semibold">{fromSlug(params.name)}</h2>
       </div>
-      <div className={"flex flex-col gap-y-4 px-10"}>
+      <div className={"flex flex-col gap-5 p-5 my-5"}>
         {!exercises ? (
           <p className="text-center text-2xl font-semibold">
             No exercises in this routine. Add some!
@@ -40,7 +40,7 @@ const ExercisesFromRoutine = () => {
           ))
         )}
       </div>
-    </div>
+    </>
   );
 };
 

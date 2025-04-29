@@ -88,7 +88,7 @@ def login_view(request):
                 value=tokens["access"],
                 httponly=True,
                 secure=False,  # cambia a True en producción con HTTPS
-                # samesite="Lax",
+                samesite="Lax",
                 max_age=300  # opcional, 5 minutos
             )
             response.set_cookie(
@@ -96,7 +96,7 @@ def login_view(request):
                 value=tokens["refresh"],
                 httponly=True,
                 secure=False,
-                # samesite="Lax",
+                samesite="Lax",
                 max_age=86400  # opcional, 1 día
             )
             return response
@@ -124,8 +124,6 @@ def logout_view(request):
 @jwt_cookie_auth_required
 def get_user(request):
     if request.method == "GET":
-        print("hola")
-        print(request.user)
         try:
             user = request.user
             return JsonResponse({"message": "User authenticated", "username": user.username, "email": user.email}, status=200)

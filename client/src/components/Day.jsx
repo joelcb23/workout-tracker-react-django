@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import ItemContainer from "./ItemContainer";
 
 const Day = ({ day, exercise, dayCompleted }) => {
   const [activated, setActivated] = useState(false);
@@ -7,13 +8,13 @@ const Day = ({ day, exercise, dayCompleted }) => {
     setActivated(true);
   }, []);
   return (
-    <div
-      className={`w-full bg-white px-12 flex justify-between items-center shadow-lg rounded overflow-hidden transition-all duration-1000 ease-in-out ${
-        activated ? "h-20" : "h-4"
+    <ItemContainer
+      className={`overflow-hidden transition-all duration-1000 ease-in-out ${
+        !activated && "h-4"
       }`}
     >
       <div className="text-lg">
-        <h1 className="font-semibold mb-3 capitalize">{day}</h1>
+        <h1 className="font-semibold text-2xl mb-3 capitalize">{day}</h1>
         <p className="capitalize">
           {exercise === 0 ? "Rest day" : `Exercises: ${exercise}`}
         </p>
@@ -29,7 +30,7 @@ const Day = ({ day, exercise, dayCompleted }) => {
       >
         {status}
       </h2>
-    </div>
+    </ItemContainer>
   );
 };
 

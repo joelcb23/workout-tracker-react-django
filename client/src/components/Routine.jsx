@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useRoutine } from "../context/RoutineContext";
+import ItemContainer from "./ItemContainer";
 
 const Routine = ({ id, name, isActive }) => {
   const { activateRoutine, deleteRoutine } = useRoutine();
@@ -15,8 +16,11 @@ const Routine = ({ id, name, isActive }) => {
     activateRoutine(id);
   };
   return (
-    <div className="w-full h-20 bg-white px-12 flex justify-between items-center shadow-lg rounded relative">
-      <div className={`min-w-60 flex justify-between items-center gap-x-5`}>
+    <ItemContainer className=" relative">
+      <div
+        className={`min-w-60 flex flex-col md:justify-between md:gap-5
+          md:flex-row md:items-center`}
+      >
         <h2 className="font-semibold text-2xl capitalize">{name}</h2>
         <p className={`text-base text-blue-400 underline hover:no-underline`}>
           <Link to={`/workout-routine/routine/${id}/${toSlug(name)}`}>
@@ -26,8 +30,8 @@ const Routine = ({ id, name, isActive }) => {
       </div>
       <p
         title="Click to change status"
-        className={`text-xl cursor-pointer ${
-          isActive ? "text-sky-500" : "text-neutral-400"
+        className={`text-lg cursor-pointer ${
+          isActive ? "text-purple-500" : "text-neutral-400"
         }`}
         onClick={() => handleMarkActive(id)}
       >
@@ -39,11 +43,11 @@ const Routine = ({ id, name, isActive }) => {
           console.log(id);
           deleteRoutine(id);
         }}
-        className={`absolute right-[-15px] top-[-5px] p-1 text-center rounded-full bg-neutral-100   hover:bg-neutral-300`}
+        className={`absolute right-[-15px] top-[-5px] p-1 text-sm text-center rounded-full bg-neutral-100   hover:bg-neutral-300`}
       >
         ❌
       </button>
-    </div>
+    </ItemContainer>
   );
 };
 

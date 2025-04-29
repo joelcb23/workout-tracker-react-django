@@ -7,7 +7,7 @@ const ExerciseBar = ({ sets_Done }) => {
   }, []);
   return (
     <div
-      className={`bg-neutral-200 rounded-full w-[480px] h-4 px-1.5 flex justify-center items-center gap-x-1.5`}
+      className={`bg-neutral-200 rounded-full w-full md:w-[480px] h-4 px-1.5 flex justify-center items-center gap-x-1.5`}
     >
       {sets_Done.map(({ id, done }) => (
         <span
@@ -16,7 +16,7 @@ const ExerciseBar = ({ sets_Done }) => {
         >
           <span
             className={`w-full h-2 absolute inset-0 transform transition-transform duration-1000 ${
-              done ? "bg-sky-500" : "bg-neutral-400"
+              done ? "bg-purple-500" : "bg-neutral-400"
             } ${activated ? "translate-x-0" : "-translate-x-full"}`}
           ></span>
         </span>

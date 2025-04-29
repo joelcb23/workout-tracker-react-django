@@ -1,2 +1,9 @@
 venv/
 .env
+.vscode/*
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+DELETE.sql
+workout_tracker.session.sql

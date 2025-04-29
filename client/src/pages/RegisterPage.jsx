@@ -14,10 +14,8 @@ const RegisterPage = () => {
     navigate("/");
   });
   return (
-    <div
-      className={`bg-white max-w-[1080px] mx-auto my-30 flex flex-col gap-y-5 px-10 py-20 rounded-xl`}
-    >
-      <div className="flex flex-col gap-y-3 my-3">
+    <>
+      <div className="text-lg flex flex-col gap-y-5 my-10">
         <h1 className="text-3xl font-bold text-center">SIGNUP</h1>
         <p className={`text-neutral-600 text-center`}>
           Welcome my friend! Let's create your account
@@ -26,7 +24,7 @@ const RegisterPage = () => {
       <form
         action=""
         onSubmit={onSubmit}
-        className={`w-1/2 mx-auto flex flex-col gap-y-5`}
+        className={`form-exercise md:w-1/2 md:mx-auto`}
       >
         <input
           type="text"
@@ -55,16 +53,16 @@ const RegisterPage = () => {
         <input
           type="submit"
           value="SIGNUP"
-          className={`w-full py-3 bg-sky-500 rounded-lg text-white font-semibold hover:bg-sky-600`}
+          className={`w-full py-3 bg-purple-500 rounded-lg text-white font-semibold hover:bg-purpole-700`}
         />
       </form>
-      <p className="text-neutral-600 text-center my-3 ">
+      <p className="text-neutral-600 text-center text-lg my-10 ">
         Already have an account?{" "}
         <Link to="/login" className="text-sky-600 underline hover:text-sky-800">
           Login
         </Link>
       </p>
-    </div>
+    </>
   );
 };
 

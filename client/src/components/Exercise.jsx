@@ -1,17 +1,21 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { useRoutine } from "../context/RoutineContext";
+import ItemContainer from "./ItemContainer";
 
 const Exercise = ({ routineId, exerciseId, name, sets, reps, day }) => {
   const { deleteExercise } = useRoutine();
   return (
-    <div className="w-full h-20 bg-white px-12 flex justify-between items-center shadow-lg rounded relative">
-      <div className="flex items-center w-full text-lg gap-x-4">
-        <h1 className="font-semibold capitalize">
+    <ItemContainer className=" md:text-lg relative">
+      <div className="flex items-center w-full gap-4">
+        <h1 className="md:hidden font-semibold capitalize" title={name}>
+          {name.slice(0, 10)}
+          {name.length > 10 ? "..." : ""}/{day}
+        </h1>
+        <h1 className="hidden md:block font-semibold capitalize" title={name}>
           {name}/{day}
         </h1>
         <p>
-          Series/Reps: {sets}/{reps}
+          Sets/Reps: {sets}/{reps}
         </p>
       </div>
 
@@ -24,14 +28,13 @@ const Exercise = ({ routineId, exerciseId, name, sets, reps, day }) => {
       <button
         title="Delete element"
         onClick={() => {
-          console.log(routineId, exerciseId);
           deleteExercise(routineId, exerciseId);
         }}
-        className={`absolute right-[-15px] top-[-5px] p-1 text-center rounded-full bg-neutral-100   hover:bg-neutral-300`}
+        className={`absolute right-[-15px] top-[-5px] p-1 text-sm text-center rounded-full bg-neutral-100   hover:bg-neutral-300`}
       >
         ❌
       </button>
-    </div>
+    </ItemContainer>
   );
 };
 

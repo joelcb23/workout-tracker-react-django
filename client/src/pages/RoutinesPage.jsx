@@ -6,6 +6,9 @@ import { useEffect, useState } from "react";
 const RoutinesPage = () => {
   const { routine, routines, getRoutines, createRoutine } = useRoutine();
   const [showModal, setShowModal] = useState(false);
+  const closeModal = () => {
+    setShowModal(false);
+  };
   const onSubmit = (e) => {
     e.preventDefault();
     const data = {
@@ -32,30 +35,26 @@ const RoutinesPage = () => {
     loadRoutines();
   }, [routine?.id, routine?.is_active]);
   return (
-    <div
-      className={`bg-white max-w-[1080px] min-h-[800px] mx-auto flex flex-col gap-y-4 my-14 px-10 py-14 rounded-xl `}
-    >
+    <>
       <h1
-        className={`text-3xl text-center font-semibold uppercase pb-10 border-b`}
+        className={`text-3xl text-center font-semibold uppercase p-10 border-b`}
       >
         Routines
       </h1>
-      <div className="min-h-[600px] flex flex-col gap-y-4 px-10">
-        {renderRoutinesList()}
-      </div>
+      <div className="flex flex-col gap-5 p-5 my-5">{renderRoutinesList()}</div>
       <p
-        className="bg-sky-400 hover:bg-sky-600 text-white font-semibold rounded cursor-pointer text-center p-3 px-5"
+        className="bg-purple-500 hover:bg-purple-700 text-white font-semibold rounded cursor-pointer text-center p-3 px-5 mx-5 md:w-2/3 md:mx-auto"
         onClick={() => setShowModal(true)}
       >
         Add a new routine
       </p>
-      <PopUp show={showModal} onClose={() => setShowModal(false)}>
+      <PopUp show={showModal} close={closeModal}>
         <h2 className="text-2xl font-semibold text-center my-3">
           Create a new routine
         </h2>
         <p className="text-neutral-600 text-base text-center">
           Cool, lets create a new routine. You can add exercises later, for that
-          you must active the routine
+          you must active the routine.
         </p>
         <form onSubmit={onSubmit} className="form-exercise my-3">
           <p>
@@ -67,12 +66,12 @@ const RoutinesPage = () => {
               placeholder="Volume routine"
             />
           </p>
-          <button className="bg-sky-400 hover:bg-sky-600 text-white font-semibold rounded cursor-pointer text-center p-3 px-5">
+          <button className="bg-purple-500 hover:bg-purple-700 text-white font-semibold rounded cursor-pointer text-center p-3 px-5">
             Create
           </button>
         </form>
       </PopUp>
-    </div>
+    </>
   );
 };
 

@@ -7,6 +7,7 @@ import {
 } from "react-icons/io5";
 import { useRoutine } from "../context/RoutineContext";
 import { markSetRequest } from "../api/routine.api";
+import ItemContainer from "./ItemContainer";
 
 const ExerciseForToday = ({ exerciseId, name, sets, reps, sets_Done }) => {
   const { routine } = useRoutine();
@@ -21,10 +22,10 @@ const ExerciseForToday = ({ exerciseId, name, sets, reps, sets_Done }) => {
     }
   };
   return (
-    <div className="w-full h-20 bg-white px-12 flex justify-between items-center shadow-lg rounded">
-      <div className={`flex  flex-col justify-center gap-y-2`}>
-        <div className="flex items-center w-full text-lg gap-x-4">
-          <h1 className="font-semibold">{name}</h1>
+    <ItemContainer>
+      <div className={`  w-[90%] flex flex-col justify-center gap-2`}>
+        <div className="flex justify-between items-center text-lg gap-4">
+          <h1 className="font-semibold capitalize">{name}</h1>
           <p>
             Series/Reps: {sets}/{reps}
           </p>
@@ -33,13 +34,13 @@ const ExerciseForToday = ({ exerciseId, name, sets, reps, sets_Done }) => {
       </div>
       {completedExercise < sets ? (
         <IoCheckmarkCircleOutline
-          className="text-2xl text-neutral-400 "
+          className="text-2xl text-neutral-400 w-6"
           onClick={() => markCompleted(markSet[0].id)}
         />
       ) : (
-        <IoCheckmarkCircleSharp className="text-2xl text-sky-500" />
+        <IoCheckmarkCircleSharp className="text-2xl text-purple-500" />
       )}
-    </div>
+    </ItemContainer>
   );
 };
 

@@ -111,7 +111,7 @@ export const RoutineProvider = ({ children }) => {
   const getExercise = async (routineId, exerciseId) => {
     try {
       const res = await getExerciseRequest(routineId, exerciseId);
-      console.log(res);
+      // console.log(res);
       return res.data.exercise;
       // setExercises(res.data.exercises);
     } catch (error) {
@@ -131,7 +131,7 @@ export const RoutineProvider = ({ children }) => {
   const updateExercise = async (routineId, exerciseId, data) => {
     try {
       const res = await updateExerciseRequest(routineId, exerciseId, data);
-      console.log(res.data);
+      // console.log(res.data);
     } catch (error) {
       console.log(error);
     }
@@ -149,7 +149,6 @@ export const RoutineProvider = ({ children }) => {
 
   useEffect(() => {
     routineActive();
-    console.log("holaa, desde el routine provider");
   }, [user]);
   return (
     <RoutineContext.Provider

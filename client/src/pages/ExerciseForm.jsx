@@ -33,7 +33,6 @@ const ExerciseForm = () => {
           params.routineId,
           params.exerciseId
         );
-        console.log(exerciseData);
         setValue("name", exerciseData.name);
         setValue("description", exerciseData.description);
         setValue("sets", exerciseData.sets);
@@ -44,8 +43,8 @@ const ExerciseForm = () => {
     loadExercise();
   }, [params.exerciseId]);
   return (
-    <div className="bg-white max-w-[1080px] min-h-[800px] mx-auto flex flex-col gap-y-10 my-14 px-10 py-10 rounded-xl">
-      <div className={`flex flex-col gap-y-5 my-3`}>
+    <>
+      <div className={`flex flex-col gap-5 my-10`}>
         <h2 className={`text-3xl font-semibold text-center`}>
           {params.exerciseId ? "Update this exercise" : "Add a new exercise"}
         </h2>
@@ -61,23 +60,38 @@ const ExerciseForm = () => {
           </p>
         )}
       </div>
-      <form action="" onSubmit={onSubmit} className={`form-exercise`}>
+      <form
+        action=""
+        onSubmit={onSubmit}
+        className={`form-exercise md:w-2/3 md:mx-auto`}
+      >
         <p>
           <label htmlFor="name">Name:</label>
           <input
             id="name"
             type="text"
             placeholder="Example: Bench Press"
-            {...register("name")}
+            {...register("name", {
+              required: {
+                value: true,
+                message: "Name is required",
+              },
+            })}
           />
         </p>
         <p>
           <label htmlFor="description">Description:</label>
-          <input
+          <textarea
+            rows="3"
             id="description"
             type="text"
             placeholder="Give a short description"
-            {...register("description")}
+            {...register("description", {
+              required: {
+                value: true,
+                message: "Description is required",
+              },
+            })}
           />
         </p>
         <p>
@@ -99,7 +113,12 @@ const ExerciseForm = () => {
               id="sets"
               type="number"
               placeholder="0"
-              {...register("sets")}
+              {...register("sets", {
+                required: {
+                  value: true,
+                  message: "Sets is required",
+                },
+              })}
             />
           </p>
           <p>
@@ -108,15 +127,20 @@ const ExerciseForm = () => {
               id="reps"
               type="number"
               placeholder="0"
-              {...register("reps")}
+              {...register("reps", {
+                required: {
+                  value: true,
+                  message: "Reps is required",
+                },
+              })}
             />
           </p>
         </div>
-        <button className="bg-sky-400 hover:bg-sky-600 text-white font-semibold p-3 rounded-lg mt-3">
+        <button className="bg-purple-500 hover:bg-purple-700 text-white font-semibold p-3 rounded-lg mt-3">
           {params.exerciseId ? "Update" : "Add"} exercise
         </button>
       </form>
-    </div>
+    </>
   );
 };
 

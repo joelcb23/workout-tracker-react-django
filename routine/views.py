@@ -34,7 +34,6 @@ def get_routine_active(request):
             user = request.user
             routines_from_user = Routine.objects.filter(user=user)
             routine_active = routines_from_user.filter(is_active=True).first()
-            print(routine_active)
             if routine_active:
                 return JsonResponse({"routine_active": {
                     "id": routine_active.id,
@@ -381,7 +380,6 @@ def mark_not_done_all_set(request, routine_id):
             sets_done = SetDone.objects.filter(exercise__in=exercises)
             # print(sets_done.values())
             for set_d in sets_done:
-                print(set_d)
                 set_d.mark_not_done()
                 
             return JsonResponse({"message": "Set marked as not done"}, status=200)

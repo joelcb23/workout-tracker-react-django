@@ -1,11 +1,34 @@
 @import "tailwindcss";
 
 body {
-  @apply bg-neutral-200 min-h-screen;
+  @apply bg-neutral-200 max-w-[1280px] mx-auto min-h-screen;
   @apply font-sans;
 }
+
+.navbar{
+  @apply w-full h-[90px] md:h-[120px] bg-white shadow-lg absolute top-0 left-0 right-0 z-10;
+  @apply flex items-center justify-center;
+}
+.page-container {
+  @apply bg-white min-h-screen mt-[100px] mb-3 md:mt-[130px] rounded-lg overflow-hidden;
+  /* @apply flex flex-col items-center justify-center; */
+}
+
+.bottom-bar{
+  @apply bg-white text-purple-700 text-sm capitalize h-[70px] fixed bottom-0 left-0 right-0 z-10;
+  @apply flex justify-between items-center md:hidden;
+}
+
+.item-bottom-bar{
+  @apply text-center p-5 flex flex-col justify-between items-center gap-2;
+}
+
+.card{
+  @apply md:w-1/3 text-center bg-white p-10 rounded-lg shadow-lg flex flex-col items-center;
+}
+
 .form-exercise{
-  @apply flex flex-col gap-y-5;
+  @apply flex flex-col gap-5 p-5 md:p-10;
   p{
     @apply flex flex-col gap-y-1;
     label{
@@ -17,13 +40,18 @@ body {
     select{
       @apply w-full p-3 rounded-lg border border-neutral-400;
     }
+    textarea{
+      @apply w-full p-3 rounded-lg border border-neutral-400;
+    }
   }
 }
+
 .show-span{
   span{
     @apply inline;
   }
 }
+
 .input-forms{
   @apply w-full p-3 rounded-lg border border-neutral-400;
 }
