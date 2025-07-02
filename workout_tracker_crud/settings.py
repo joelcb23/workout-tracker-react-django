@@ -17,9 +17,11 @@ from datetime import timedelta
 
 # Load environment variables
 load_dotenv()
+name_db = os.getenv('DB_NAME')
 user_db = os.getenv('DB_USER')
 password_db = os.getenv('DB_PASSWORD')
 host_db = os.getenv('DB_HOST')
+port_db = os.getenv('DB_PORT')
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -30,10 +32,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-8k_#ykb&t)+)d#=)t5+yxy&a4t_!e=qgsvbf@+p0%#h%k*@ykl'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -109,11 +111,11 @@ WSGI_APPLICATION = 'workout_tracker_crud.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': "workout_tracker_db",
+        'NAME': name_db,
         'USER': user_db,
         'PASSWORD': password_db,
         'HOST': host_db,
-        "PORT": "3306",
+        "PORT": port_db,
     }
 }
 
