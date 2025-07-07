@@ -10,18 +10,15 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
-from pathlib import Path
 import os
+import dj_database_url
+from pathlib import Path
 from dotenv import load_dotenv
 from datetime import timedelta
 
+
 # Load environment variables
 load_dotenv()
-name_db = os.getenv('DB_NAME')
-user_db = os.getenv('DB_USER')
-password_db = os.getenv('DB_PASSWORD')
-host_db = os.getenv('DB_HOST')
-port_db = os.getenv('DB_PORT')
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -35,9 +32,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = "RENDER" not in os.environ
 
 ALLOWED_HOSTS = []
+
+RENDER_EXTERNAL_HOSTNAME = os.getenv('RENDER_EXTERNAL_HOSTNAME')
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 
 # Application definition
@@ -76,12 +77,13 @@ REST_FRAMEWORK = {
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 ROOT_URLCONF = 'workout_tracker_crud.urls'
@@ -109,14 +111,10 @@ WSGI_APPLICATION = 'workout_tracker_crud.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': name_db,
-        'USER': user_db,
-        'PASSWORD': password_db,
-        'HOST': host_db,
-        "PORT": port_db,
-    }
+    'default': dj_database_url.config(
+        default=f'postgresql://postgress:postgress@localhost/postgress',
+        conn_max_age=600
+    )
 }
 
 
@@ -158,6 +156,10 @@ STATIC_URL = '/assets/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'client/dist/assets'), 
 ]
+
+if not DEBUG:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type    
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
