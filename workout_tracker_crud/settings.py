@@ -112,7 +112,7 @@ WSGI_APPLICATION = 'workout_tracker_crud.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default=f'postgresql://postgress:postgress@localhost/postgress',
+        default=os.getenv('DATABASE_URL'),
         conn_max_age=600
     )
 }
