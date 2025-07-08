@@ -9,7 +9,6 @@ const LoginPage = () => {
   const navigate = useNavigate();
 
   const onSubmit = handleSubmit((data) => {
-    // console.log(data);
     login(data);
     navigate("/");
   });

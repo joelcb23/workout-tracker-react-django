@@ -26,7 +26,6 @@ const ExerciseForm = () => {
     }
   });
   useEffect(() => {
-    console.log(params);
     const loadExercise = async () => {
       if (params.exerciseId) {
         const exerciseData = await getExercise(

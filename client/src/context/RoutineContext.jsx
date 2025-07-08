@@ -45,7 +45,6 @@ export const RoutineProvider = ({ children }) => {
     try {
       const res = await getRoutinesRequest();
       setRoutines(res.data.routines);
-      // console.log(res);
     } catch (error) {
       console.log(error);
     }
@@ -62,7 +61,6 @@ export const RoutineProvider = ({ children }) => {
   const createRoutine = async (routine) => {
     try {
       const res = await createRoutineRequest(routine);
-      console.log(res);
       setRoutines([...routines, res.data.routine]);
     } catch (error) {
       console.error(error);
@@ -72,7 +70,6 @@ export const RoutineProvider = ({ children }) => {
   const activateRoutine = async (routine_id) => {
     try {
       const res = await activateRoutineRequest(routine_id);
-      // console.log(res.data);
       setRoutine(res.data.routine);
     } catch (error) {
       console.error(error);
@@ -82,7 +79,6 @@ export const RoutineProvider = ({ children }) => {
   const deleteRoutine = async (routine_id) => {
     try {
       const res = await deleteRoutineRequest(routine_id);
-      // console.log(res.data);
       setRoutines(routines.filter((r) => r.id !== routine_id));
     } catch (error) {
       console.error(error);
@@ -101,7 +97,6 @@ export const RoutineProvider = ({ children }) => {
   const getExercises = async (routineId) => {
     try {
       const res = await getExercisesRequest(routineId);
-      // console.log(res);
       setExercises(res.data.exercises);
     } catch (error) {
       console.log(error);
@@ -111,9 +106,7 @@ export const RoutineProvider = ({ children }) => {
   const getExercise = async (routineId, exerciseId) => {
     try {
       const res = await getExerciseRequest(routineId, exerciseId);
-      // console.log(res);
       return res.data.exercise;
-      // setExercises(res.data.exercises);
     } catch (error) {
       console.log(error);
     }
@@ -130,8 +123,7 @@ export const RoutineProvider = ({ children }) => {
 
   const updateExercise = async (routineId, exerciseId, data) => {
     try {
-      const res = await updateExerciseRequest(routineId, exerciseId, data);
-      // console.log(res.data);
+      await updateExerciseRequest(routineId, exerciseId, data);
     } catch (error) {
       console.log(error);
     }
@@ -139,8 +131,7 @@ export const RoutineProvider = ({ children }) => {
 
   const deleteExercise = async (routineId, exerciseId) => {
     try {
-      const res = await deleteExerciseRequest(routineId, exerciseId);
-      console.log(res.data);
+      await deleteExerciseRequest(routineId, exerciseId);
       setExercises(exercises.filter((e) => e.id !== exerciseId));
     } catch (error) {
       console.log(error);

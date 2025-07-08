@@ -9,7 +9,6 @@ const RegisterPage = () => {
   const navigate = useNavigate();
 
   const onSubmit = handleSubmit((data) => {
-    console.log(data);
     signup(data);
     navigate("/");
   });
