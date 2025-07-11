@@ -46,7 +46,7 @@ export const RoutineProvider = ({ children }) => {
       const res = await getRoutinesRequest();
       setRoutines(res.data.routines);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
   const routineActive = async () => {
@@ -54,7 +54,7 @@ export const RoutineProvider = ({ children }) => {
       const res = await getRoutineActiveRequest();
       setRoutine(res.data.routine_active);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -99,7 +99,7 @@ export const RoutineProvider = ({ children }) => {
       const res = await getExercisesRequest(routineId);
       setExercises(res.data.exercises);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -108,7 +108,7 @@ export const RoutineProvider = ({ children }) => {
       const res = await getExerciseRequest(routineId, exerciseId);
       return res.data.exercise;
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -125,7 +125,7 @@ export const RoutineProvider = ({ children }) => {
     try {
       await updateExerciseRequest(routineId, exerciseId, data);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -134,7 +134,7 @@ export const RoutineProvider = ({ children }) => {
       await deleteExerciseRequest(routineId, exerciseId);
       setExercises(exercises.filter((e) => e.id !== exerciseId));
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 

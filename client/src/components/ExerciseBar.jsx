@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 
-const ExerciseBar = ({ sets_Done }) => {
+const ExerciseBar = ({ sets_Done, markSet }) => {
   const [activated, setActivated] = useState(false);
   useEffect(() => {
     setActivated(true);
-  }, []);
+  }, [markSet]);
   return (
     <div
       className={`bg-neutral-200 rounded-full w-full md:w-[480px] h-4 px-1.5 flex justify-center items-center gap-x-1.5`}

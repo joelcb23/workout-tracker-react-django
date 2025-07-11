@@ -28,7 +28,7 @@ const PopUp = ({ children, show, close }) => {
     >
       <div
         ref={modalRef}
-        className={`w-[95%] md:w-1/3 min-h-1/5 m-auto bg-white rounded p-5 text-lg`}
+        className={`w-[95%] md:w-1/2 lg:w-1/3 min-h-1/5 m-auto bg-white rounded p-5 text-lg`}
       >
         {children}
       </div>

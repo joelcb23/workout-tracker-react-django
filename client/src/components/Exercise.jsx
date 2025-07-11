@@ -5,7 +5,7 @@ import ItemContainer from "./ItemContainer";
 const Exercise = ({ routineId, exerciseId, name, sets, reps, day }) => {
   const { deleteExercise } = useRoutine();
   return (
-    <ItemContainer className=" md:text-lg relative">
+    <ItemContainer className="bg-white relative md:text-lg lg:w-2/3">
       <div className="flex items-center w-full gap-4">
         <h1 className="md:hidden font-semibold capitalize" title={name}>
           {name.slice(0, 10)}

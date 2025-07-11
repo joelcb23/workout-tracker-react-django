@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import ExerciseForToday from "../components/ExerciseForToday";
 import { PieChart, Pie, Cell } from "recharts";
 import { useRoutine } from "../context/RoutineContext";
-// import { useAuth } from "../context/AuthContext";
+import manMeditation from "../assets/meditation.png";
 
 const TodayPage = () => {
   const { routine, exerForToday, today, getExercisesForToday } = useRoutine();
@@ -61,9 +61,16 @@ const TodayPage = () => {
       </div>
       <div className={"flex flex-col gap-y-4 p-5"}>
         {exerForToday.length === 0 ? (
-          <p className="text-center text-2xl font-semibold">
-            No exercises for today. Take a rest.
-          </p>
+          <>
+            <p className="text-center text-3xl font-semibold mb-10">
+              No exercises for today. Take a rest.
+            </p>
+            <img
+              src={manMeditation}
+              alt="man-meditation"
+              className="h-[200px] md:h-[400px] mx-auto"
+            />
+          </>
         ) : (
           exerForToday.map(({ id, name, sets, reps, sets_Done }) => (
             <ExerciseForToday

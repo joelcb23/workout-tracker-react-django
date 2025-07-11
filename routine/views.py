@@ -362,8 +362,6 @@ def mark_done_set(request, routine_id, exercise_id, set_id):
             for set_d in all_sets:
                 if set_d.done:
                     completed_sets += 1
-            if completed_sets == exercise.sets:
-                exercise.mark_completed()
 
             # Return a success response
             return JsonResponse({"message": "Set marked as done"}, status=200)

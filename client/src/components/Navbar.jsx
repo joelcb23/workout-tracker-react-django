@@ -9,7 +9,7 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <h1 className="text-3xl font-bold md:hidden">My Workout Tracker</h1>
-      <ul className="hidden md:flex justify-center items-center gap-x-14 w-full h-full text-2xl font-bold uppercase">
+      <ul className="hidden md:flex justify-center items-center gap-x-10 w-full h-full text-xl lg:text-2xl font-bold uppercase">
         {isAuthenticated && (
           <li className="capitalize">Hi, {user.username}!</li>
         )}

@@ -1,4 +1,6 @@
 import json
+import os
+from dotenv import load_dotenv
 from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
@@ -6,6 +8,8 @@ from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
 from rest_framework_simplejwt.tokens import RefreshToken, AccessToken, TokenError
 from routine.decorators import jwt_cookie_auth_required
 
+# Load environment variables
+load_dotenv()
 
 def get_tokens_for_user(user):
     refresh = RefreshToken.for_user(user)
@@ -15,7 +19,6 @@ def get_tokens_for_user(user):
     }
 
 # Create your views here.
-
 
 @csrf_exempt
 @ensure_csrf_cookie
@@ -50,10 +53,24 @@ def register(request):
             # Generate JWT tokens
             tokens = get_tokens_for_user(user)
 
-            response = JsonResponse({"message": "Login successful"},
-                                    )
-            response.set_cookie("access_token", tokens["access"], httponly=True, secure=False, samesite='Lax')
-            response.set_cookie("refresh_token", tokens["refresh"], httponly=True, secure=False, samesite='Lax')
+            response = JsonResponse({"message": "The user was created successfully"})
+                                    
+            response.set_cookie(
+                key="access_token",
+                value=tokens["access"],
+                httponly=True,
+                secure=os.getenv("IS_PRODUCTION"),  
+                samesite="None",
+                max_age=300  
+            )
+            response.set_cookie(
+                key="refresh_token",
+                value=tokens["refresh"],
+                httponly=True,
+                secure=os.getenv("IS_PRODUCTION"),
+                samesite="None",
+                max_age=86400 
+            )
             return response
 
         except Exception as e:
@@ -82,22 +99,22 @@ def login_view(request):
             tokens = get_tokens_for_user(user)
 
             response = JsonResponse({"message": "Login successful"})
-             # Acceso temporal (5 min) y refresh más largo (1 día por defecto)
+             # Access 5 minutes y refresh 1 day
             response.set_cookie(
                 key="access_token",
                 value=tokens["access"],
                 httponly=True,
-                secure=True,  # cambia a True en producción con HTTPS
+                secure=os.getenv("IS_PRODUCTION"),  
                 samesite="None",
-                max_age=300  # opcional, 5 minutos
+                max_age=300  
             )
             response.set_cookie(
                 key="refresh_token",
                 value=tokens["refresh"],
                 httponly=True,
-                secure=True,
+                secure=os.getenv("IS_PRODUCTION"),
                 samesite="None",
-                max_age=86400  # opcional, 1 día
+                max_age=86400  
             )
             return response
 
@@ -154,9 +171,9 @@ def token_refresh(request):
                 key="access_token",
                 value=new_access_token,
                 httponly=True,
-                secure=False,  # Cambia a True si usas HTTPS
-                samesite="Lax",
-                max_age=300  # 5 minutos, o el tiempo que quieras
+                secure=os.getenv("IS_PRODUCTION"),  
+                samesite="None",
+                max_age=300 
             )
 
             return response

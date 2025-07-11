@@ -16,7 +16,7 @@ const Routine = ({ id, name, isActive }) => {
     activateRoutine(id);
   };
   return (
-    <ItemContainer className=" relative">
+    <ItemContainer className="bg-white relative lg:w-2/3">
       <div
         className={`min-w-60 flex flex-col md:justify-between md:gap-5
           md:flex-row md:items-center`}
@@ -40,7 +40,6 @@ const Routine = ({ id, name, isActive }) => {
       <button
         title="Delete element"
         onClick={() => {
-          console.log(id);
           deleteRoutine(id);
         }}
         className={`absolute right-[-15px] top-[-5px] p-1 text-sm text-center rounded-full bg-neutral-100   hover:bg-neutral-300`}

@@ -8,3 +8,8 @@ export const registerRequest = async (data) =>
 export const logoutRequest = async () => await api.post(`/auth/logout`);
 
 export const profileRequest = async () => await api.get(`/auth/profile`);
+
+export const refreshRequest = async () =>
+  await api.post(`/auth/token/refresh`, null, {
+    withCredentials: true,
+  });

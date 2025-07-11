@@ -9,7 +9,6 @@ const ExercisesFromRoutine = () => {
   const fromSlug = (slug) => {
     return slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
   };
-  // console.log(params);
   useEffect(() => {
     const loadExercises = async () => {
       getExercises(params.id);

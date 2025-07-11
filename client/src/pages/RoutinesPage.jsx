@@ -2,6 +2,7 @@ import PopUp from "../components/PopUp";
 import Routine from "../components/Routine";
 import { useRoutine } from "../context/RoutineContext";
 import { useEffect, useState } from "react";
+import workoutImg from "../assets/workout.jpg";
 
 const RoutinesPage = () => {
   const { routine, routines, getRoutines, createRoutine } = useRoutine();
@@ -18,11 +19,18 @@ const RoutinesPage = () => {
     setShowModal(false);
   };
   const renderRoutinesList = () => {
-    if (!routines)
+    if (!routines || routines.length === 0)
       return (
-        <p className="text-center text-2xl font-semibold">
-          No routines yet. Create a new one!
-        </p>
+        <>
+          <p className="text-center text-3xl font-semibold mb-10">
+            No routines yet. Create a new one!
+          </p>
+          <img
+            src={workoutImg}
+            alt="workout"
+            className="w-1/2 mx-auto lg:w-1/4"
+          />
+        </>
       );
     return routines.map(({ id, name, is_active }) => (
       <Routine key={id} id={id} name={name} isActive={is_active} />
@@ -39,9 +47,11 @@ const RoutinesPage = () => {
       <h1
         className={`text-3xl text-center font-semibold uppercase p-10 border-b`}
       >
-        Routines
+        Your Routines
       </h1>
-      <div className="flex flex-col gap-5 p-5 my-5">{renderRoutinesList()}</div>
+      <div className="min-h-[850px] flex flex-col gap-5 p-5 my-5">
+        {renderRoutinesList()}
+      </div>
       <p
         className="bg-purple-500 hover:bg-purple-700 text-white font-semibold rounded cursor-pointer text-center p-3 px-5 mx-5 md:w-2/3 md:mx-auto"
         onClick={() => setShowModal(true)}

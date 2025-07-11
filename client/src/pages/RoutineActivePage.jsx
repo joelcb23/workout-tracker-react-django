@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import Day from "../components/Day";
 import { useRoutine } from "../context/RoutineContext";
 import { unmarkSetRequest } from "../api/routine.api";
+import Day from "../components/Day";
+import dumbbell from "../assets/dumbbell.jpg";
 
 const RoutineActivePage = () => {
   const { routine, exercises, getExercises } = useRoutine();
@@ -51,6 +52,7 @@ const RoutineActivePage = () => {
 
   const unmarkSets = async () => {
     await unmarkSetRequest(routine.id);
+    await getExercises(routine.id);
   };
   useEffect(() => {
     const loadRoutine = async () => {
@@ -63,13 +65,20 @@ const RoutineActivePage = () => {
       {routine ? (
         <>
           <h1 className="text-3xl text-center font-semibold uppercase p-10 border-b">
-            {routine.name}
+            Daily Progress{` - ${routine.name}`}
           </h1>
-          <div className={`flex flex-col gap-4 my-5 p-5`}>
+          <div
+            className={`min-h-[850px] flex flex-col lg:w-2/3 lg:mx-auto gap-4 my-5 p-5 ${
+              exercises ? "lg:grid grid-cols-2" : "lg:flex-col"
+            }`}
+          >
             {!exercises ? (
-              <h1 className="text-2xl text-center font-semibold uppercase pb-4">
-                No exercises in this routine
-              </h1>
+              <>
+                <h1 className="w-full text-3xl text-center font-semibold uppercase pb-4 mb-10">
+                  No exercises in this routine
+                </h1>
+                <img src={dumbbell} alt="dumbbell" className="w-1/2 mx-auto" />
+              </>
             ) : (
               days.map((day) => (
                 <Day
@@ -87,7 +96,7 @@ const RoutineActivePage = () => {
           There's not an active routine, create one or active one.
         </h1>
       )}
-      <div className="flex justify-end items-center gap-5 my-5 md:my-10 md:w-2/3 mx-auto">
+      <div className="w-full md:w-1/2 mx-auto flex justify-center items-center gap-5 my-5 md:my-10">
         <button
           onClick={unmarkSets}
           className="bg-green-500 hover:bg-green-600 text-white font-semibold rounded-full cursor-pointer text-center p-3 px-5"
