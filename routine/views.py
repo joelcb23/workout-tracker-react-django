@@ -182,6 +182,37 @@ def get_exercises(request, routine_id):
 
     return JsonResponse({"message": "Invalid request method"}, status=400)
 
+def get_exercises_from_day(request, routine_id, day):
+    if request.method == "GET":
+        try:
+            routine = Routine.objects.get(id=routine_id)
+            exercises = Exercise.objects.filter(routine=routine, day=day)
+            if not exercises:
+                return JsonResponse({"message": "Exercises not yet"}, status=201)
+            
+            exercises_list =[]
+            for exercise in exercises:
+                setsDone = list(SetDone.objects.filter(exercise=exercise).values("id", "done"))
+                exercise_data={
+                    "id": exercise.id,
+                    "name": exercise.name,
+                    "description": exercise.description,
+                    "day": exercise.day,
+                    "sets": exercise.sets,
+                    "reps": exercise.reps,
+                    "sets_Done": setsDone,
+                    "routine": exercise.routine.id,
+                    "created_at": exercise.created_at
+                }
+                exercises_list.append(exercise_data)
+                
+            return JsonResponse({"exercises": exercises_list}, status=200)
+        except Routine.DoesNotExist:
+            return JsonResponse({"message": "Routine not found"}, status=404)
+        except Exception as e:
+            return JsonResponse({"message": str(e)}, status=400)
+    return JsonResponse({"message": "Invalid request method"}, status=400)
+
 def get_exercise(request, routine_id, exercise_id):
     if request.method == "GET":
         

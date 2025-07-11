@@ -14,7 +14,7 @@ urlpatterns = [
     # Exercises
     path("routine/<int:routine_id>/get-exercises",
          views.get_exercises, name="get-exercises"),
-    
+    path("routine/<int:routine_id>/get-exercises-from-day/<str:day>",views.get_exercises_from_day, name="get-exercises-from-day"),
     path("routine/<int:routine_id>/get-exercise/<int:exercise_id>", views.get_exercise, name="get-exercise",),
     path("routine/<int:routine_id>/add-exercise",
          views.add_exercise, name="add-exercise"),

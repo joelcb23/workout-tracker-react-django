@@ -9,7 +9,7 @@ import { markSetRequest } from "../api/routine.api";
 import ItemContainer from "./ItemContainer";
 
 const ExerciseForToday = ({ exerciseId, name, sets, reps, sets_Done }) => {
-  const { routine, getExercisesForToday } = useRoutine();
+  const { today, routine, getExercisesForToday } = useRoutine();
   const markSet = useMemo(
     () => sets_Done.filter(({ done }) => !done),
     [sets_Done]
@@ -19,7 +19,7 @@ const ExerciseForToday = ({ exerciseId, name, sets, reps, sets_Done }) => {
   const markCompleted = async (id) => {
     try {
       await markSetRequest(routine.id, exerciseId, id);
-      await getExercisesForToday(routine.id);
+      await getExercisesForToday(routine.id, today);
     } catch (error) {
       console.error(error);
     }

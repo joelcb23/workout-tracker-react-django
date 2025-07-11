@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import ExerciseForToday from "../components/ExerciseForToday";
 import { PieChart, Pie, Cell } from "recharts";
 import { useRoutine } from "../context/RoutineContext";
@@ -7,10 +7,17 @@ import manMeditation from "../assets/meditation.png";
 const TodayPage = () => {
   const { routine, exerForToday, today, getExercisesForToday } = useRoutine();
 
-  const totalSeries = exerForToday.reduce((acc, curr) => acc + curr.sets, 0);
-  const seriesCompleted = exerForToday.reduce(
-    (acc, curr) => acc + curr.sets_Done.filter((s) => s.done).length,
-    0
+  const totalSeries = useMemo(
+    () => exerForToday?.reduce((acc, curr) => acc + curr.sets, 0),
+    [exerForToday]
+  );
+  const seriesCompleted = useMemo(
+    () =>
+      exerForToday?.reduce(
+        (acc, curr) => acc + curr.sets_Done?.filter((s) => s.done).length,
+        0
+      ),
+    [exerForToday]
   );
 
   const COLORS = ["#8B5FC6", "#D9D9D9"];
@@ -20,12 +27,11 @@ const TodayPage = () => {
   ];
   useEffect(() => {
     const loadExercises = async () => {
-      routine?.id && (await getExercisesForToday(routine.id));
+      routine?.id && (await getExercisesForToday(routine.id, today));
     };
     loadExercises();
-  }, [routine?.id]);
+  }, [routine?.id, today]);
   return (
-    // <div className="bg-white max-w-[1080px] min-h-[800px] mx-auto flex flex-col gap-y-4 my-14 px-10 py-7 rounded-xl">
     <>
       <div className="flex justify-between items-center border-b my-10 px-5 md:px-20">
         <h2 className="text-3xl font-semibold py-5">{today}</h2>
@@ -60,7 +66,7 @@ const TodayPage = () => {
         </span>
       </div>
       <div className={"flex flex-col gap-y-4 p-5"}>
-        {exerForToday.length === 0 ? (
+        {!exerForToday || exerForToday.length === 0 ? (
           <>
             <p className="text-center text-3xl font-semibold mb-10">
               No exercises for today. Take a rest.

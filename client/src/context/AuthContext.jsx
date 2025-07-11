@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }) => {
 
   const signup = async (data) => {
     try {
-      const response = await registerRequest(data);
+      await registerRequest(data);
       await verifyToken();
     } catch (error) {
       console.error("Signup error:", error.response?.data || error.message);
@@ -35,7 +35,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (user) => {
     try {
-      const response = await loginRequest(user);
+      await loginRequest(user);
       await verifyToken();
     } catch (error) {
       console.error("Login error:", error.response?.data || error.message);
@@ -47,6 +47,7 @@ export const AuthProvider = ({ children }) => {
       await logoutRequest();
       setUser(null);
       setIsAuthenticated(false);
+      localStorage.removeItem("isAuthenticated");
     } catch (error) {
       console.error("Logout error:", error.response?.data || error.message);
     }
@@ -55,19 +56,20 @@ export const AuthProvider = ({ children }) => {
   const verifyToken = async () => {
     setLoading(true);
     try {
-      // Asegúrate de tener configurada correctamente profileRequest para enviar el token
+      // Request to verify token
       const res = await profileRequest();
 
-      // Si la petición es exitosa, actualiza el estado
+      // If the token is valid, set isAuthenticated to true
       setIsAuthenticated(true);
       setUser({ username: res.data.username, email: res.data.email });
+      localStorage.setItem("isAuthenticated", "true");
     } catch (error) {
-      // Si el error tiene response, accedemos a la data de la respuesta
+      // If the token is invalid, set isAuthenticated to false
       const errorMessage = error.response ? error.response.data : error.message;
       console.error("Token Verification Failed:", errorMessage);
-
-      setIsAuthenticated(false); // Marcar como no autenticado
+      setIsAuthenticated(false);
       setUser(null);
+      localStorage.removeItem("isAuthenticated");
     } finally {
       setLoading(false);
     }

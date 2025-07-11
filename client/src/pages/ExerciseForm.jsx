@@ -5,11 +5,18 @@ import { useEffect } from "react";
 import ExercisesFromRoutine from "./ExercisesFromRoutine";
 
 const ExerciseForm = () => {
-  const { getExercise, addExercise, updateExercise } = useRoutine();
+  const {
+    today,
+    routine,
+    getExercise,
+    addExercise,
+    updateExercise,
+    getExercisesForToday,
+  } = useRoutine();
   const { register, handleSubmit, setValue } = useForm();
   const navigate = useNavigate();
   const params = useParams();
-  const onSubmit = handleSubmit((data) => {
+  const onSubmit = handleSubmit(async (data) => {
     const newData = {
       name: data.name,
       description: data.description,
@@ -21,7 +28,8 @@ const ExerciseForm = () => {
       updateExercise(params.routineId, params.exerciseId, newData);
       navigate("/workout-routine/routines");
     } else {
-      addExercise(newData);
+      await addExercise(newData);
+      await getExercisesForToday(routine.id, today);
       navigate("/today");
     }
   });

@@ -7,6 +7,7 @@ import {
   deleteExerciseRequest,
   deleteRoutineRequest,
   getExerciseRequest,
+  getExercisesFromDayRequest,
   getExercisesRequest,
   getRoutineActiveRequest,
   getRoutinesRequest,
@@ -61,6 +62,7 @@ export const RoutineProvider = ({ children }) => {
   const createRoutine = async (routine) => {
     try {
       const res = await createRoutineRequest(routine);
+      await routineActive();
       setRoutines([...routines, res.data.routine]);
     } catch (error) {
       console.error(error);
@@ -78,18 +80,20 @@ export const RoutineProvider = ({ children }) => {
 
   const deleteRoutine = async (routine_id) => {
     try {
-      const res = await deleteRoutineRequest(routine_id);
+      await deleteRoutineRequest(routine_id);
+      await routineActive();
+      setExerForToday([]);
       setRoutines(routines.filter((r) => r.id !== routine_id));
     } catch (error) {
       console.error(error);
     }
   };
 
-  const getExercisesForToday = async (id) => {
+  const getExercisesForToday = async (routineId, day) => {
     try {
-      const res = await getExercisesRequest(id);
-      res.data.exercises &&
-        setExerForToday(res.data.exercises.filter((e) => e.day === today));
+      await routineActive();
+      const res = await getExercisesFromDayRequest(routineId, day);
+      setExerForToday(res.data.exercises);
     } catch (error) {
       console.error(error);
     }

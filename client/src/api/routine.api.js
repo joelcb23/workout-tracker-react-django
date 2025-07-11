@@ -20,6 +20,11 @@ export const deleteRoutineRequest = async (routineId) =>
 export const getExercisesRequest = async (routine_id) =>
   await api.get(`/routines/routine/${routine_id}/get-exercises`);
 
+export const getExercisesFromDayRequest = async (routine_id, day) =>
+  await api.get(
+    `/routines/routine/${routine_id}/get-exercises-from-day/${day}`
+  );
+
 export const getExerciseRequest = async (routine_id, exercise_id) =>
   await api.get(`/routines/routine/${routine_id}/get-exercise/${exercise_id}`);
 

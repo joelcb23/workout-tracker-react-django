@@ -44,7 +44,7 @@ const RoutineActivePage = () => {
     const exer = exercises.filter((e) => e.day === day.toUpperCase());
     const totalSeries = exer.reduce((acc, curr) => acc + curr.sets, 0);
     const seriesCompleted = exer.reduce(
-      (acc, curr) => acc + curr.sets_Done.filter((s) => s.done).length,
+      (acc, curr) => acc + curr.sets_Done?.filter((s) => s.done).length,
       0
     );
     return seriesCompleted === totalSeries;
@@ -59,7 +59,7 @@ const RoutineActivePage = () => {
       routine?.id && getExercises(routine.id);
     };
     loadRoutine();
-  }, [routine]);
+  }, [routine?.id]);
   return (
     <>
       {routine ? (
@@ -89,28 +89,37 @@ const RoutineActivePage = () => {
                 />
               ))
             )}
+          </div>{" "}
+          <div className="w-full md:w-1/2 mx-auto flex justify-center items-center gap-5 my-5 md:my-10">
+            <button
+              onClick={unmarkSets}
+              className="bg-green-500 hover:bg-green-600 text-white font-semibold rounded-full cursor-pointer text-center p-3 px-5"
+            >
+              Unmark Sets
+            </button>
+
+            <Link
+              to={"/workout-routine/active/add-exercise"}
+              className="bg-sky-400 hover:bg-sky-600 text-white font-semibold rounded-full cursor-pointer text-center p-3 px-5"
+            >
+              Add Exercise
+            </Link>
           </div>
         </>
       ) : (
-        <h1 className="text-2xl text-center font-semibold uppercase pb-4">
-          There's not an active routine, create one or active one.
-        </h1>
+        <>
+          <h1 className="text-2xl text-center font-semibold uppercase pb-4 my-20">
+            There's not an active routine,{" "}
+            <Link
+              to="/workout-routine/routines"
+              className="text-blue-500 underline hover:no-underline"
+            >
+              create one or active one.
+            </Link>
+          </h1>
+          <img src={dumbbell} alt="dumbbell" className="w-1/2 mx-auto my-10" />
+        </>
       )}
-      <div className="w-full md:w-1/2 mx-auto flex justify-center items-center gap-5 my-5 md:my-10">
-        <button
-          onClick={unmarkSets}
-          className="bg-green-500 hover:bg-green-600 text-white font-semibold rounded-full cursor-pointer text-center p-3 px-5"
-        >
-          Unmark Sets
-        </button>
-
-        <Link
-          to={"/workout-routine/active/add-exercise"}
-          className="bg-sky-400 hover:bg-sky-600 text-white font-semibold rounded-full cursor-pointer text-center p-3 px-5"
-        >
-          Add Exercise
-        </Link>
-      </div>
     </>
   );
 };

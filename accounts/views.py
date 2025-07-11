@@ -99,7 +99,7 @@ def login_view(request):
             tokens = get_tokens_for_user(user)
 
             response = JsonResponse({"message": "Login successful"})
-             # Access 5 minutes y refresh 1 day
+             # Access 5 minutes and refresh 1 day
             response.set_cookie(
                 key="access_token",
                 value=tokens["access"],
