@@ -40,6 +40,7 @@ const ExerciseForm = () => {
           params.routineId,
           params.exerciseId
         );
+        // console.log(exerciseData);
         setValue("name", exerciseData.name);
         setValue("description", exerciseData.description);
         setValue("sets", exerciseData.sets);
